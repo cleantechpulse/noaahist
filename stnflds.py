@@ -52,7 +52,7 @@ def log_station((_id, log_stns, us_stns)):
     try:
         yr = get_stn_year(_id, us_stns)
         url = 'ftp://ftp.ncdc.noaa.gov/pub/data/noaa/{0}/{1}-{0}.gz'.format(yr, _id)
-        print '\nretrieving stn=%s  yr=%s ... \n' % (_id, str(yr))
+        print('\nretrieving stn=%s  yr=%s ... \n' % (_id, str(yr)))
         p1 = Popen(["curl", url], stdout=PIPE)
         p2 = Popen(["gunzip"], stdin=p1.stdout, stdout=PIPE)
         p3 = Popen(['java', '-classpath', 'static', 'ishJava'], stdin=p2.stdout, stdout=PIPE)
@@ -87,7 +87,7 @@ def main(n):
     log_stns = {line.split(",")[0]: line for line in open(STN_LOG).readlines()[1:]}   # skip header
     # station ids not logged yet
     unk_stns = [stn for stn in us_stns if stn not in log_stns]
-    print "\nlen(unk_stns):", len(unk_stns), '\n'
+    print("\nlen(unk_stns):", len(unk_stns), '\n')
 
     # stations that appear to fail for unexpected reasons
     fail_stns = ['692704-99999', '700866-99999', '999999-93725', '727345-99999', '749173-99999', '720399-99999', '722047-99999', '724959-99999',
@@ -153,7 +153,7 @@ def main(n):
         
         # make requests in parallel
         nprocs = max(1, cpu_count() - 1)
-        print "making requests in parallel on < %s > processors" % str(nprocs)
+        print("making requests in parallel on < %s > processors" % str(nprocs))
         pool = Pool(processes=nprocs)
         result = pool.map_async(log_station, [(_id, log_stns, us_stns) for _id in stn_ids])
         log_lines = result.get()

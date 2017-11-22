@@ -38,16 +38,16 @@ def stns_near_lat_lon(latitude, longitude, year, N=20, id_filter=None):
     _ids = sorted(stn_ids, key=lambda _id: haversine(latitude, longitude, stns[_id]['lat'], stns[_id]['lon']))[:N]
     lines += [show_stn(_id, j) for j, _id in enumerate(_ids)]
     if len(lines) > 1:
-        print "".join(lines)
+        print("".join(lines))
     else:
-        print "No stations were found that matched these criteria."
+        print("No stations were found that matched these criteria.")
 
 def stns_near_zip(zip, year, N=20, id_filter=None):
     try:
         (lat, lon) = coords_from_zip(zip)
         stns_near_lat_lon(lat, lon, year, N, id_filter)
     except ImportError:
-        print "pyzipcode is not available -> try using stns_near_lat_lon()"
+        print("pyzipcode is not available -> try using stns_near_lat_lon()")
 
 def stns_with_fld(fld, latitude, longitude, year, N=20):
     valid_flds = ['TEMP','MIN','MAX','DEWP','DIR','SPD','GUS','PCP01','PCPXX','PCP06','PCP24','SD','SKC',
@@ -62,12 +62,13 @@ def stns_with_fld_zip(fld, zip, year, N=20):
         (lat, lon) = coords_from_zip(zip)
         stns_with_fld(fld, lat, lon, year, N)
     except ImportError:
-        print "pyzipcode is not available -> try using stns_near_lat_lon()"
+        print("pyzipcode is not available -> try using stns_near_lat_lon()")
 
 if __name__ == "__main__":
-    print "This module is for interactive exploration."
-    print "Find weather stations near a location, optionally requesting that a certain field is likely to be present."
-    print "There are no guarantees that the data for any field will exist.  Data observations are sparse in many cases."
-    print """Example:
+    print("This module is for interactive exploration.")
+    print("Find weather stations near a location, optionally requesting that a certain field is likely to be present.")
+    print("There are no guarantees that the data for any field will exist.  Data observations are sparse in many cases.")
+    print("""Example:
  >>> from explore_stations import *
  >>> stns_with_fld("TEMP", 38.9, -77.0, 2013)"""
+)

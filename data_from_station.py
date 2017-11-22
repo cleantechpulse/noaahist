@@ -34,7 +34,7 @@ def main(args):
             hr_time = obs[NOAA_fields['HR_TIME'][0] : NOAA_fields['HR_TIME'][1]]
             if args.startdate < hr_time < args.enddate:
                 lines += [",".join([args.queryname, hr_time] + [re.sub("\*+", "*", obs[NOAA_fields[fld][0] : NOAA_fields[fld][1]].strip()) for fld in args.flds])]
-    print "\n".join(lines) + "\n"
+    print("\n".join(lines) + "\n")
                 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='./data_from_station.py')
